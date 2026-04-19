@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Philip Amendolia</title>
+  <meta name="description" content="Platform & cloud engineer. Nix enthusiast. 9+ years shipping cloud-native infrastructure on GCP. NYC." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%231e1e2e'/><text x='50' y='68' text-anchor='middle' font-size='58' fill='%23cba6f7' font-family='monospace'>%3E_</text></svg>" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Philip Amendolia" />
+  <meta property="og:description" content="Platform & cloud engineer. Nix enthusiast. 9+ years shipping cloud-native infrastructure on GCP. NYC." />
+  <meta property="og:image" content="https://avatars.githubusercontent.com/u/116534928?v=4" />
+  <meta property="og:url" content="https://philipamendolia.com" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --base:      #1e1e2e;
+      --mantle:    #181825;
+      --crust:     #11111b;
+      --surface0:  #313244;
+      --surface1:  #45475a;
+      --surface2:  #585b70;
+      --overlay0:  #6c7086;
+      --overlay1:  #7f849c;
+      --overlay2:  #9399b2;
+      --subtext0:  #a6adc8;
+      --subtext1:  #bac2de;
+      --text:      #cdd6f4;
+      --lavender:  #b4befe;
+      --blue:      #89b4fa;
+      --sapphire:  #74c7ec;
+      --sky:       #89dceb;
+      --teal:      #94e2d5;
+      --green:     #a6e3a1;
+      --yellow:    #f9e2af;
+      --peach:     #fab387;
+      --mauve:     #cba6f7;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--base);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--lavender); }
+    code { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 0.88em; color: var(--teal); }
+
+    .container { max-width: 880px; margin: 0 auto; padding: 0 32px; }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      padding: 100px 0 84px;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, var(--surface0) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.55;
+      mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 65%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 65%, transparent 100%);
+    }
+    .hero-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--mauve) 30%, var(--blue) 70%, transparent 100%);
+    }
+    .hero-inner { position: relative; }
+    .hero-identity {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 20px;
+    }
+    .hero-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 2px solid var(--surface1);
+      flex-shrink: 0;
+    }
+
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--overlay1);
+      letter-spacing: 0.06em;
+      margin-bottom: 18px;
+    }
+    .hero-name {
+      font-size: clamp(52px, 9vw, 88px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .hero-tagline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(12px, 1.8vw, 14px);
+      color: var(--subtext0);
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+    .hero-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .hero-link {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 14px;
+      color: var(--overlay2);
+      transition: color 0.15s;
+    }
+    .hero-link:hover { color: var(--text); }
+    .hero-link svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+    /* ── Sections ── */
+    section { padding: 72px 0; border-top: 1px solid var(--surface0); }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--mauve);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+    }
+    .section-label::before { content: '// '; color: var(--surface2); }
+
+    /* ── About ── */
+    .about-text {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--subtext1);
+      max-width: 700px;
+    }
+    .about-text strong { color: var(--text); font-weight: 600; }
+
+    /* ── Stack ── */
+    .stack-grid { display: flex; flex-direction: column; gap: 18px; }
+    .stack-row { display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+    .stack-category {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--overlay0);
+      min-width: 112px;
+      flex-shrink: 0;
+      padding-top: 4px;
+    }
+    .stack-pills { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    .pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 4px;
+      border: 1px solid;
+      white-space: nowrap;
+    }
+    .pill-teal    { color: var(--teal);    border-color: color-mix(in srgb, var(--teal)    28%, transparent); background: color-mix(in srgb, var(--teal)    7%, transparent); }
+    .pill-blue    { color: var(--blue);    border-color: color-mix(in srgb, var(--blue)    28%, transparent); background: color-mix(in srgb, var(--blue)    7%, transparent); }
+    .pill-mauve   { color: var(--mauve);   border-color: color-mix(in srgb, var(--mauve)   28%, transparent); background: color-mix(in srgb, var(--mauve)   7%, transparent); }
+    .pill-peach   { color: var(--peach);   border-color: color-mix(in srgb, var(--peach)   28%, transparent); background: color-mix(in srgb, var(--peach)   7%, transparent); }
+    .pill-sapphire{ color: var(--sapphire);border-color: color-mix(in srgb, var(--sapphire)28%, transparent); background: color-mix(in srgb, var(--sapphire) 7%, transparent); }
+    .pill-surface { color: var(--subtext0);border-color: var(--surface1); background: var(--surface0); }
+
+    /* ── Experience ── */
+    .exp-list { display: flex; flex-direction: column; gap: 52px; }
+    .exp-company-name {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .exp-company-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--overlay0);
+      margin-bottom: 24px;
+    }
+    .exp-roles {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      padding-left: 20px;
+      border-left: 2px solid var(--surface0);
+    }
+    .exp-role-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .exp-role-title { font-size: 14px; font-weight: 600; color: var(--lavender); }
+    .exp-role-date  { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--overlay0); }
+    .exp-bullets    { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .exp-bullets li {
+      font-size: 13.5px;
+      color: var(--subtext0);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.65;
+    }
+    .exp-bullets li::before { content: '–'; position: absolute; left: 0; color: var(--surface1); }
+
+    /* ── Open Source ── */
+    .oss-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 14px;
+    }
+    .oss-card {
+      background: var(--mantle);
+      border: 1px solid var(--surface0);
+      border-radius: 8px;
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      transition: border-color 0.15s;
+    }
+    .oss-card:hover { border-color: var(--surface1); }
+    .oss-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .oss-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.45;
+    }
+    .oss-status {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .oss-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .status-merged { color: var(--green); } .status-merged .oss-dot { background: var(--green); }
+    .status-open   { color: var(--yellow);} .status-open   .oss-dot { background: var(--yellow);}
+    .oss-repo  { font-size: 12px; color: var(--overlay0); }
+    .oss-repo a { color: var(--overlay1); } .oss-repo a:hover { color: var(--blue); }
+    .oss-desc  { font-size: 13px; color: var(--subtext0); line-height: 1.65; }
+    .oss-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--mauve);
+      background: color-mix(in srgb, var(--mauve) 10%, transparent);
+      border: 1px solid color-mix(in srgb, var(--mauve) 22%, transparent);
+      border-radius: 4px;
+      padding: 2px 8px;
+      width: fit-content;
+    }
+
+    /* ── Projects ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 14px;
+    }
+    .project-card {
+      background: var(--mantle);
+      border: 1px solid var(--surface0);
+      border-radius: 8px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.15s;
+    }
+    .project-card:hover { border-color: var(--surface1); }
+    .project-card.flagship {
+      grid-column: 1 / -1;
+      border-color: color-mix(in srgb, var(--mauve) 22%, transparent);
+    }
+    .project-card.flagship:hover {
+      border-color: color-mix(in srgb, var(--mauve) 40%, transparent);
+    }
+    .project-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .project-name { font-size: 17px; font-weight: 700; color: var(--text); }
+    .project-links { display: flex; gap: 8px; }
+    .project-link-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--surface1);
+      color: var(--subtext0);
+      transition: all 0.15s;
+    }
+    .project-link-btn:hover { color: var(--text); border-color: var(--surface2); }
+    .project-private {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 4px;
+      border: 1px solid var(--surface0);
+      color: var(--overlay0);
+      background: var(--surface0);
+    }
+    .project-desc {
+      font-size: 14px;
+      color: var(--subtext0);
+      line-height: 1.75;
+    }
+    .project-bullets { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .project-bullets li {
+      font-size: 13px;
+      color: var(--overlay2);
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.6;
+    }
+    .project-bullets li::before { content: '–'; position: absolute; left: 0; color: var(--surface2); }
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 4px;
+    }
+
+    /* ── Footer ── */
+    footer { border-top: 1px solid var(--surface0); padding: 40px 0; }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--overlay0);
+    }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-link { font-size: 13px; color: var(--overlay0); transition: color 0.15s; }
+    .footer-link:hover { color: var(--subtext1); }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .container { padding: 0 20px; }
+      .hero { padding: 72px 0 60px; }
+      .oss-grid, .projects-grid { grid-template-columns: 1fr; }
+      .stack-category { min-width: 80px; }
+      .exp-role-header { flex-direction: column; gap: 2px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Hero ── -->
+  <div class="hero">
+    <div class="hero-bar"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <p class="hero-eyebrow">New York City</p>
+        <div class="hero-identity">
+          <div>
+            <h1 class="hero-name">Philip<br>Amendolia</h1>
+            <p class="hero-tagline">Platform &amp; cloud engineer. Nix enthusiast. Reads all the code. NYC. 🏄</p>
+          </div>
+          <img src="https://avatars.githubusercontent.com/u/116534928?v=4" alt="Philip Amendolia" class="hero-avatar" />
+        </div>
+        <div class="hero-links">
+          <a href="mailto:philip.amendolia@gmail.com" class="hero-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            philip.amendolia@gmail.com
+          </a>
+          <a href="https://github.com/philip-730" target="_blank" rel="noopener" class="hero-link">
+            <svg fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+            philip-730
+          </a>
+          <a href="https://www.linkedin.com/in/philip-amendolia-88a14b69" target="_blank" rel="noopener" class="hero-link">
+            <svg fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+        <p id="store-path" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--surface2);margin-top:20px;"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── About ── -->
+  <section>
+    <div class="container">
+      <p class="section-label">about</p>
+      <p class="about-text">
+        Engineer with 9+ years shipping cloud-native data and platform infrastructure on GCP.
+        Transitioned into engineering from product management — came up sitting next to strong engineers and never stopped learning.
+        Comfortable owning the full stack from IaC and CI/CD through backend APIs and frontend tooling.
+        Strong opinions on reproducibility, developer experience, and doing things right.
+        <br><br>
+        <strong>Every machine, environment, build, and OCI image is built with Nix.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Stack ── -->
+  <section>
+    <div class="container">
+      <p class="section-label">stack</p>
+      <div class="stack-grid">
+
+        <div class="stack-row">
+          <span class="stack-category">IaC / Systems</span>
+          <div class="stack-pills">
+            <span class="pill pill-blue">Terraform</span>
+            <span class="pill pill-teal">Nix / Nixpkgs</span>
+            <span class="pill pill-teal">NixOS</span>
+            <span class="pill pill-teal">home-manager</span>
+            <span class="pill pill-surface">Bash</span>
+            <span class="pill pill-surface">Linux</span>
+          </div>
+        </div>
+
+        <div class="stack-row">
+          <span class="stack-category">CI / CD</span>
+          <div class="stack-pills">
+            <span class="pill pill-blue">GitHub Actions</span>
+            <span class="pill pill-peach">Cloud Build</span>
+          </div>
+        </div>
+
+        <div class="stack-row">
+          <span class="stack-category">Languages</span>
+          <div class="stack-pills">
+            <span class="pill pill-blue">TypeScript</span>
+            <span class="pill pill-mauve">Python</span>
+            <span class="pill pill-surface">SQL</span>
+            <span class="pill pill-teal">Nix</span>
+            <span class="pill pill-blue">HCL</span>
+            <span class="pill pill-sapphire">Go</span>
+          </div>
+        </div>
+
+        <div class="stack-row">
+          <span class="stack-category">Frameworks</span>
+          <div class="stack-pills">
+            <span class="pill pill-blue">Next.js</span>
+            <span class="pill pill-blue">React</span>
+            <span class="pill pill-mauve">FastAPI</span>
+            <span class="pill pill-surface">Node.js</span>
+          </div>
+        </div>
+
+        <div class="stack-row">
+          <span class="stack-category">Cloud (GCP)</span>
+          <div class="stack-pills">
+            <span class="pill pill-peach">Cloud Run</span>
+            <span class="pill pill-peach">Cloud Functions</span>
+            <span class="pill pill-peach">Firebase</span>
+            <span class="pill pill-peach">Compute Engine</span>
+            <span class="pill pill-peach">BigQuery</span>
+            <span class="pill pill-peach">Firestore</span>
+            <span class="pill pill-peach">Cloud SQL</span>
+            <span class="pill pill-peach">Cloud Storage</span>
+            <span class="pill pill-peach">Pub/Sub</span>
+            <span class="pill pill-peach">Workflows</span>
+            <span class="pill pill-peach">Eventarc</span>
+            <span class="pill pill-peach">API Gateway</span>
+            <span class="pill pill-peach">Cloud Armor</span>
+            <span class="pill pill-peach">Load Balancing</span>
+            <span class="pill pill-peach">Serverless NEGs</span>
+            <span class="pill pill-peach">Secret Manager</span>
+            <span class="pill pill-peach">IAM</span>
+            <span class="pill pill-peach">Cloud Monitoring</span>
+            <span class="pill pill-peach">Cloud Logging</span>
+            <span class="pill pill-peach">Artifact Registry</span>
+          </div>
+        </div>
+
+        <div class="stack-row">
+          <span class="stack-category">AI / GenAI</span>
+          <div class="stack-pills">
+            <span class="pill pill-mauve">LLM Integration</span>
+            <span class="pill pill-mauve">Prompt Engineering</span>
+            <span class="pill pill-mauve">MCP Development</span>
+            <span class="pill pill-mauve">Claude API</span>
+          </div>
+        </div>
+
+        <div class="stack-row">
+          <span class="stack-category">Containers</span>
+          <div class="stack-pills">
+            <span class="pill pill-teal">dockerTools</span>
+            <span class="pill pill-teal">skopeo</span>
+            <span class="pill pill-teal">Nix binary cache</span>
+            <span class="pill pill-surface">Docker</span>
+          </div>
+        </div>
+
+        <div class="stack-row">
+          <span class="stack-category">Other</span>
+          <div class="stack-pills">
+            <span class="pill pill-surface">Git</span>
+            <span class="pill pill-surface">REST / SSE</span>
+            <span class="pill pill-surface">SQLMesh</span>
+            <span class="pill pill-surface">gRPC / Protobuf</span>
+            <span class="pill pill-mauve">uv</span>
+            <span class="pill pill-teal">uv2nix</span>
+            <span class="pill pill-teal">buildNpmPackage</span>
+            <span class="pill pill-surface">just</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Experience ── -->
+  <section>
+    <div class="container">
+      <p class="section-label">experience</p>
+      <div class="exp-list">
+
+        <div>
+          <p class="exp-company-name">EPL Digital</p>
+          <p class="exp-company-meta"><span data-tenure-start="2019-04"></span> &nbsp;·&nbsp; New York City</p>
+          <div class="exp-roles">
+
+            <div>
+              <div class="exp-role-header">
+                <span class="exp-role-title">Staff Engineer</span>
+                <span class="exp-role-date">Jul 2022 – Present &nbsp;·&nbsp; <span data-tenure-start="2022-07"></span></span>
+              </div>
+              <ul class="exp-bullets">
+                <li>Lead data and platform engineering across internal and client-facing systems</li>
+                <li>Own GCP org-level infrastructure and landing zone; drive IaC (Terraform, Nix) and CI/CD adoption across projects</li>
+                <li>Built and deployed internal bid optimization platform around a proprietary ML model — API microservice for automated execution, Next.js frontend for surfacing recommendations to users, full Cloud Run architecture and IaC</li>
+                <li>Architected and maintain K2, an event-driven ELT platform processing 40M+ rows/day across 10+ API integrations — Cloud Workflows, Pub/Sub, Eventarc, Cloud Tasks, parallel Cloud Functions execution; Firestore-backed job config with Next.js management frontend</li>
+                <li>Own the infrastructure for EPL's SQLMesh data modeling platform — Terraform, Cloud Build CI/CD, OCI builds with Nix, Cloud SQL (PostgreSQL) state backend, and a self-hosted Nix binary cache to accelerate builds</li>
+                <li>Built EPL's proprietary first-party measurement stack — <code>epltag.js</code> client-side JS tag and server-side Measurement Protocol API with SHA-256 PII hashing, deployed in production across client sites</li>
+                <li>Collaborate with leadership on product roadmaps, data strategies, and internal tooling</li>
+                <li>Drove data infrastructure reliability and platform scalability across all client and internal systems</li>
+              </ul>
+            </div>
+
+            <div>
+              <div class="exp-role-header">
+                <span class="exp-role-title">Data Engineer</span>
+                <span class="exp-role-date">Apr 2019 – Jun 2022</span>
+              </div>
+              <ul class="exp-bullets">
+                <li>Architected and deployed foundational data infrastructure and internal tooling at EPL</li>
+                <li>Designed and implemented marketing tracking infrastructure for accurate, scalable measurement</li>
+                <li>Designed and built the original API Factory ELT platform — multi-tenant, multi-API pipeline architecture that evolved into K2, EPL's core data engine</li>
+                <li>Led deployment of first cloud-native internal applications for digital marketing optimization</li>
+                <li>Introduced modern DevOps practices and IaC: Terraform, CI/CD automation</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <div>
+          <p class="exp-company-name">Stack Blue</p>
+          <p class="exp-company-meta">4 yrs 9 mos &nbsp;·&nbsp; New York City</p>
+          <div class="exp-roles">
+            <div>
+              <div class="exp-role-header">
+                <span class="exp-role-title">Product Manager</span>
+                <span class="exp-role-date">Aug 2014 – Apr 2019</span>
+              </div>
+              <ul class="exp-bullets">
+                <li>Managed end-to-end delivery for web and mobile product accounts</li>
+                <li>Coordinated cross-functional offshore teams across design, engineering, and deployment</li>
+                <li>Primary liaison between clients and engineering; scoped requirements and drove value</li>
+                <li>Came up alongside strong engineers — learned the SDLC, decided to cross the line</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Open Source ── -->
+  <section>
+    <div class="container">
+      <p class="section-label">recent open source</p>
+      <div class="oss-grid">
+
+        <div class="oss-card">
+          <div class="oss-card-header">
+            <span class="oss-title">programs.wezterm: add settings option</span>
+            <span class="oss-status status-merged"><span class="oss-dot"></span>merged</span>
+          </div>
+          <p class="oss-repo">nix-community / home-manager &nbsp;·&nbsp; <a href="https://github.com/nix-community/home-manager/pull/9050" target="_blank" rel="noopener">#9050</a></p>
+          <span class="oss-badge">★ maintainer — WezTerm module</span>
+          <p class="oss-desc">Fully declarative WezTerm config via a Nix attribute set. Settings serialized to Lua via <code>lib.generators.toLua</code>; raw Lua expressions embeddable with <code>lib.generators.mkLuaInline</code>. Full backward compat with <code>extraConfig</code> via IIFE wrapping.</p>
+        </div>
+
+        <div class="oss-card">
+          <div class="oss-card-header">
+            <span class="oss-title">services.darkman: add unified scripts option</span>
+            <span class="oss-status status-merged"><span class="oss-dot"></span>merged</span>
+          </div>
+          <p class="oss-repo">nix-community / home-manager &nbsp;·&nbsp; <a href="https://github.com/nix-community/home-manager/pull/9066" target="_blank" rel="noopener">#9066</a></p>
+          <p class="oss-desc">Added a <code>scripts</code> option placing scripts in <code>$XDG_DATA_HOME/darkman/</code>. Legacy <code>darkModeScripts</code> / <code>lightModeScripts</code> options remain fully supported.</p>
+        </div>
+
+        <div class="oss-card">
+          <div class="oss-card-header">
+            <span class="oss-title">python3Packages.senzu: init at 0.3.1</span>
+            <span class="oss-status status-open"><span class="oss-dot"></span>open</span>
+          </div>
+          <p class="oss-repo">NixOS / nixpkgs &nbsp;·&nbsp; <a href="https://github.com/NixOS/nixpkgs/pull/507179" target="_blank" rel="noopener">#507179</a></p>
+          <p class="oss-desc">Packaging Senzu for nixpkgs. Builds and tests pass on x86_64-linux, aarch64-linux, x86_64-darwin, and aarch64-darwin. Includes maintainer registration.</p>
+        </div>
+
+        <div class="oss-card">
+          <div class="oss-card-header">
+            <span class="oss-title">installer: make --no-modify-profile work for multi-user installs</span>
+            <span class="oss-status status-open"><span class="oss-dot"></span>open</span>
+          </div>
+          <p class="oss-repo">NixOS / nix &nbsp;·&nbsp; <a href="https://github.com/NixOS/nix/pull/15648" target="_blank" rel="noopener">#15648</a></p>
+          <p class="oss-desc">Fixed <code>NIX_INSTALLER_NO_MODIFY_PROFILE</code> being set but not exported in <code>install-nix-from-tarball.sh</code>, silently lost on exec into <code>install-multi-user</code>. Awaiting review.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Projects ── -->
+  <section>
+    <div class="container">
+      <p class="section-label">projects</p>
+      <div class="projects-grid">
+
+        <!-- Senzu — flagship -->
+        <div class="project-card flagship">
+          <div class="project-header">
+            <span class="project-name">Senzu</span>
+            <div class="project-links">
+              <a href="https://pypi.org/project/senzu/" target="_blank" rel="noopener" class="project-link-btn">PyPI</a>
+              <a href="https://github.com/philip-730/senzu" target="_blank" rel="noopener" class="project-link-btn">GitHub</a>
+            </div>
+          </div>
+          <p class="project-desc">CLI + Python library for syncing secrets between GCP Secret Manager and local <code>.env</code> files. Built for teams already on Secret Manager who are still copy-pasting values by hand.</p>
+          <ul class="project-bullets">
+            <li><code>senzu pull</code> — fetch all configured secrets into a local <code>.env</code> in one command</li>
+            <li><code>senzu push</code> — push local changes back with remote conflict detection; blocks if remote changed since your last pull</li>
+            <li><code>senzu diff</code> — see what changed without touching anything; CI-friendly</li>
+            <li><code>senzu generate</code> — auto-generate a typed Pydantic settings class from your actual secrets</li>
+            <li><code>SenzuSettings</code> — drop-in Pydantic BaseSettings subclass; reads Secret Manager directly in Cloud Run via <code>SENZU_USE_SECRET_MANAGER=true</code></li>
+            <li>Dev environment and builds fully managed by Nix (uv2nix)</li>
+          </ul>
+          <div class="project-stack">
+            <span class="pill pill-mauve">Python</span>
+            <span class="pill pill-peach">GCP Secret Manager</span>
+            <span class="pill pill-mauve">Pydantic</span>
+            <span class="pill pill-teal">Nix</span>
+          </div>
+        </div>
+
+        <!-- Groundwork -->
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-name">Groundwork</span>
+            <div class="project-links">
+              <a href="https://github.com/philip-730/groundwork" target="_blank" rel="noopener" class="project-link-btn">GitHub</a>
+            </div>
+          </div>
+          <p class="project-desc">Topology-aware GCP service scaffolding CLI. Define your org's GCP topology once and every scaffold resolves those values automatically — no placeholders to fill in by hand.</p>
+          <ul class="project-bullets">
+            <li>Inspired by shadcn/ui: tool is the delivery mechanism, files are yours once written</li>
+            <li>Template registry is a git repo your org maintains — Groundwork clones it locally</li>
+            <li>Templates are Go <code>text/template</code> with full access to topology values</li>
+            <li><code>--dry-run</code>, interactive prompts, <code>--var</code> flags to skip them</li>
+          </ul>
+          <div class="project-stack">
+            <span class="pill pill-sapphire">Go</span>
+            <span class="pill pill-teal">Nix</span>
+            <span class="pill pill-peach">GCP</span>
+          </div>
+        </div>
+
+        <!-- Hen-Wen -->
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-name">Hen-Wen</span>
+            <div class="project-links">
+              <a href="https://github.com/philip-730/hen-wen" target="_blank" rel="noopener" class="project-link-btn">GitHub</a>
+            </div>
+          </div>
+          <p class="project-desc">Natural language chatbot that queries BigQuery and streams narrated responses with Claude-generated data visualizations. Named after the oracular pig from <em>The Black Cauldron</em>.</p>
+          <ul class="project-bullets">
+            <li>Two-phase backend: generate SQL → query BigQuery → stream narrated response via SSE</li>
+            <li>Service-to-service auth via GCP identity tokens; no API keys in transit</li>
+            <li>OCI images built entirely with Nix — no Docker daemon</li>
+            <li>Nix flakes end-to-end: uv2nix for Python, buildNpmPackage for Node, dockerTools for images</li>
+          </ul>
+          <div class="project-stack">
+            <span class="pill pill-blue">Next.js</span>
+            <span class="pill pill-mauve">FastAPI</span>
+            <span class="pill pill-peach">BigQuery</span>
+            <span class="pill pill-surface">Claude API</span>
+            <span class="pill pill-teal">Nix</span>
+            <span class="pill pill-blue">Terraform</span>
+          </div>
+        </div>
+
+        <!-- Skeleton Island -->
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-name">Skeleton Island</span>
+            <span class="project-private">private</span>
+          </div>
+          <p class="project-desc">GCP landing zone managing project provisioning, shared IAM, and Workload Identity Federation across all GCP projects. No service account keys stored anywhere.</p>
+          <ul class="project-bullets">
+            <li>WIF pool scoped to specific GitHub repos — only those repos' CI can impersonate the deploy SA</li>
+            <li>Cross-project IAM lives in the LZ only; app repos never grant themselves cross-project access</li>
+            <li>Single GCS state bucket with prefixes mirroring directory structure</li>
+          </ul>
+          <div class="project-stack">
+            <span class="pill pill-blue">Terraform</span>
+            <span class="pill pill-peach">GCP IAM</span>
+            <span class="pill pill-peach">WIF</span>
+            <span class="pill pill-peach">GCS</span>
+          </div>
+        </div>
+
+        <!-- phix -->
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-name">phix</span>
+            <div class="project-links">
+              <a href="https://github.com/philip-730/phix" target="_blank" rel="noopener" class="project-link-btn">GitHub</a>
+            </div>
+          </div>
+          <p class="project-desc">Personal Nix flake managing reproducible system configurations across NixOS bare metal, NixOS-WSL, and macOS (nix-darwin).</p>
+          <ul class="project-bullets">
+            <li><code>mkNixosHost</code> / <code>mkDarwinHost</code> factory helpers in <code>lib/</code> for consistent host wiring</li>
+            <li>Modular structure: <code>modules/common</code>, <code>modules/home</code>, per-host entries, per-user identities</li>
+            <li>Daily driver: ASUS ROG Flow Z13, AMD Phoenix, Hyprland on Wayland, LUKS encryption</li>
+          </ul>
+          <div class="project-stack">
+            <span class="pill pill-teal">Nix</span>
+            <span class="pill pill-teal">NixOS</span>
+            <span class="pill pill-teal">nix-darwin</span>
+            <span class="pill pill-teal">home-manager</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-name">Philip Amendolia &nbsp;·&nbsp; NYC</span>
+        <div class="footer-links">
+          <a href="mailto:philip.amendolia@gmail.com" class="footer-link">philip.amendolia@gmail.com</a>
+          <a href="https://github.com/philip-730" target="_blank" rel="noopener" class="footer-link">github.com/philip-730</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function tenure(startStr) {
+      const [sy, sm] = startStr.split('-').map(Number);
+      const now = new Date();
+      let years = now.getFullYear() - sy;
+      let months = now.getMonth() + 1 - sm;
+      if (months < 0) { years--; months += 12; }
+      const parts = [];
+      if (years > 0) parts.push(`${years} yr${years !== 1 ? 's' : ''}`);
+      if (months > 0) parts.push(`${months} mo`);
+      return parts.join(' ') || '< 1 mo';
+    }
+    document.querySelectorAll('[data-tenure-start]').forEach(el => {
+      el.textContent = tenure(el.dataset.tenureStart);
+    });
+
+    const s = (color, extra = '') => `color:${color};font-family:'JetBrains Mono',monospace;font-size:12px;${extra}`;
+    const mauve   = s('#cba6f7', 'font-size:14px;font-weight:600;');
+    const blue    = s('#89b4fa');
+    const text    = s('#cdd6f4');
+    const dim     = s('#6c7086');
+    const green   = s('#a6e3a1');
+    const divider = s('#45475a');
+
+    console.log('%c❄  nix-info', mauve);
+    console.log('%c' + '─'.repeat(42), divider);
+    console.log('%c system      %c"x86_64-linux"',                              blue, text);
+    console.log('%c host        %cmactan · ASUS ROG Flow Z13 · AMD Phoenix',   blue, text);
+    console.log('%c wm          %cHyprland on Wayland',                        blue, text);
+    console.log('%c channel     %cnixpkgs-unstable',                           blue, text);
+    console.log('%c flake       %cgithub:philip-730/phix',                     blue, text);
+    console.log('%c' + '─'.repeat(42), divider);
+    console.log('%c philip amendolia · platform & cloud engineer · nyc', green);
+    console.log('%c' + '─'.repeat(42), divider);
+    console.log('%c hey, you found this. you\'d fit right in.', dim);
+    console.log('%c → philip.amendolia@gmail.com', blue);
+
+
+    fetch('hash.txt')
+      .then(r => r.ok ? r.text() : null)
+      .then(path => {
+        if (path) {
+          const el = document.getElementById('store-path');
+          const a = document.createElement('a');
+          a.href = 'https://github.com/philip-730/philip-730.github.io/blob/main/flake.nix';
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.textContent = path.trim();
+          a.style.color = 'inherit';
+          el.appendChild(a);
+        }
+      })
+      .catch(() => {});
+  </script>
+</body>
+</html>
