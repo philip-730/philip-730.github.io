@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Didn't Level the Playing Field. It Steepened It. — Philip Amendolia</title>
+  <meta name="description" content="On force multipliers, game theory, and the real cost of replacing expertise with automation." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%231e1e2e'/><text x='50' y='68' text-anchor='middle' font-size='58' fill='%23cba6f7' font-family='monospace'>%3E_</text></svg>" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AI Didn't Level the Playing Field. It Steepened It." />
+  <meta property="og:description" content="On force multipliers, game theory, and the real cost of replacing expertise with automation." />
+  <meta property="og:image" content="https://avatars.githubusercontent.com/u/116534928?v=4" />
+  <meta property="og:url" content="https://philipamendolia.com/blog" />
+  <meta property="og:type" content="article" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+
+  <style>
+    /* ── Catppuccin Mocha ── */
+    :root {
+      --base:     #1e1e2e;
+      --mantle:   #181825;
+      --crust:    #11111b;
+      --surface0: #313244;
+      --surface1: #45475a;
+      --surface2: #585b70;
+      --overlay0: #6c7086;
+      --overlay1: #7f849c;
+      --overlay2: #9399b2;
+      --subtext0: #a6adc8;
+      --subtext1: #bac2de;
+      --text:     #cdd6f4;
+      --lavender: #b4befe;
+      --blue:     #89b4fa;
+      --sapphire: #74c7ec;
+      --sky:      #89dceb;
+      --teal:     #94e2d5;
+      --green:    #a6e3a1;
+      --yellow:   #f9e2af;
+      --peach:    #fab387;
+      --mauve:    #cba6f7;
+      --red:      #f38ba8;
+
+      /* semantic aliases */
+      --bg:        var(--base);
+      --bg-subtle: var(--mantle);
+      --border:    var(--surface0);
+      --text-muted:var(--subtext0);
+      --text-dim:  var(--overlay0);
+      --accent:    var(--mauve);
+
+      --chart-ai:   var(--mauve);
+      --chart-pre:  var(--overlay1);
+      --chart-grid: rgba(255,255,255,0.05);
+      --chart-tick: var(--overlay0);
+
+      --font-body:  'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono:  'JetBrains Mono', 'Fira Code', monospace;
+      --font-serif: 'Lora', Georgia, serif;
+    }
+
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Layout ── */
+    .wrapper {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Post Header ── */
+    .post-header {
+      padding: 72px 0 52px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 56px;
+    }
+
+    .post-kicker {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .post-title {
+      font-family: var(--font-mono);
+      font-size: clamp(24px, 5vw, 38px);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .post-subhead {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 18px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 28px;
+      max-width: 600px;
+    }
+
+    .post-meta {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-dim);
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ── Sections ── */
+    section {
+      margin-bottom: 64px;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    /* ── Prose ── */
+    .prose p {
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    .prose p:last-child { margin-bottom: 0; }
+
+    .prose strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .prose em {
+      font-family: var(--font-serif);
+      font-style: italic;
+    }
+
+    .prose .lead {
+      font-size: 19px;
+      font-weight: 500;
+      line-height: 1.7;
+      color: var(--text);
+      margin-bottom: 28px;
+    }
+
+    /* ── Pull quote ── */
+    .pullquote {
+      border-left: 3px solid var(--accent);
+      padding: 4px 0 4px 24px;
+      margin: 40px 0;
+    }
+
+    .pullquote p {
+      font-family: var(--font-serif);
+      font-size: 21px;
+      font-style: italic;
+      line-height: 1.55;
+      color: var(--text);
+      margin: 0;
+    }
+
+    /* ── Section rule ── */
+    .section-rule {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 56px 0;
+    }
+
+    /* ── Chart block ── */
+    .chart-block {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 28px 28px 20px;
+      margin: 40px 0;
+    }
+
+    .chart-title {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 20px;
+    }
+
+    .chart-canvas-wrap {
+      position: relative;
+      height: 320px;
+    }
+
+    .chart-legend {
+      display: flex;
+      gap: 24px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .chart-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .legend-line {
+      width: 24px;
+      height: 2px;
+      flex-shrink: 0;
+    }
+
+    .legend-line.dashed {
+      background: repeating-linear-gradient(
+        90deg,
+        var(--chart-pre) 0px, var(--chart-pre) 6px,
+        transparent 6px, transparent 10px
+      );
+    }
+
+    .legend-line.solid {
+      background: var(--chart-ai);
+    }
+
+    .chart-annotation {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      margin-top: 8px;
+      text-align: right;
+    }
+
+    /* ── Payoff matrix ── */
+    .matrix-wrap {
+      margin: 40px 0;
+      overflow-x: auto;
+    }
+
+    .matrix-container {
+      display: grid;
+      grid-template-columns: 96px 1fr 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 0;
+      min-width: 440px;
+    }
+
+    .matrix-corner { /* empty top-left */ }
+
+    .matrix-col-header {
+      min-width: 0;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 10px 16px 10px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .matrix-col-header span {
+      display: block;
+      font-size: 10px;
+      color: var(--text-dim);
+      font-weight: 400;
+      margin-top: 3px;
+    }
+
+    .matrix-row-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 16px 10px 16px 0;
+      text-align: right;
+      border-right: 1px solid var(--border);
+      line-height: 1.5;
+    }
+
+    .matrix-row-label span {
+      white-space: normal;
+    }
+
+    .matrix-cell {
+      min-width: 0;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      margin: 4px;
+      padding: 16px;
+      position: relative;
+    }
+
+    .matrix-cell.nash {
+      border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 6%, var(--bg-subtle));
+    }
+
+    .matrix-cell.dominant {
+      border-left: 3px solid var(--green);
+    }
+
+    .matrix-cell.dominated {
+      border-left: 3px solid var(--red);
+    }
+
+    .nash-cell-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .nash-cell-header .matrix-cell-label {
+      margin-bottom: 0;
+    }
+
+    .nash-tag {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+      border-radius: 3px;
+      padding: 2px 6px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      flex-shrink: 0;
+      align-self: center;
+    }
+
+    .matrix-cell-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .matrix-cell-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 10px;
+    }
+
+    .matrix-scores {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .score {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 3px;
+      border: 1px solid;
+    }
+
+    .score-pos  { color: var(--green); border-color: color-mix(in srgb, var(--green) 30%, transparent); background: color-mix(in srgb, var(--green) 8%, transparent); }
+    .score-neg  { color: var(--red);   border-color: color-mix(in srgb, var(--red)   30%, transparent); background: color-mix(in srgb, var(--red)   8%, transparent); }
+    .score-meh  { color: var(--yellow);border-color: color-mix(in srgb, var(--yellow)30%, transparent); background: color-mix(in srgb, var(--yellow) 8%, transparent); }
+
+    .matrix-axis-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .matrix-note {
+      margin-top: 16px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      padding: 12px 16px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+
+    .matrix-note strong { color: var(--accent); }
+
+    /* ── SVG diagram ── */
+    .diagram-block {
+      margin: 40px 0;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 32px 24px 24px;
+    }
+
+    .diagram-title {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 24px;
+    }
+
+    .diagram-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 540px) {
+      .diagram-panels { grid-template-columns: 1fr; }
+    }
+
+    .diagram-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .diagram-panel-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+      letter-spacing: 0.06em;
+    }
+
+    .diagram-panel-verdict {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-align: center;
+      padding: 5px 12px;
+      border-radius: 4px;
+    }
+
+    .verdict-false {
+      color: var(--red);
+      background: color-mix(in srgb, var(--red) 10%, transparent);
+      border: 1px solid color-mix(in srgb, var(--red) 25%, transparent);
+    }
+
+    .verdict-true {
+      color: var(--green);
+      background: color-mix(in srgb, var(--green) 10%, transparent);
+      border: 1px solid color-mix(in srgb, var(--green) 25%, transparent);
+    }
+
+    /* ── Closing ── */
+    .closing {
+      padding: 48px 0;
+      border-top: 1px solid var(--border);
+      margin-top: 16px;
+    }
+
+    .closing p {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .closing p strong {
+      color: var(--accent);
+    }
+
+    /* ── Footer ── */
+    .post-footer {
+      padding: 32px 0 64px;
+      border-top: 1px solid var(--border);
+      margin-top: 0;
+    }
+
+    .post-footer p {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .post-footer a {
+      color: var(--text-muted);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      body { font-size: 16px; }
+      .wrapper { padding: 0 18px; }
+      .post-header { padding: 48px 0 40px; }
+      .chart-block { padding: 20px 16px 16px; }
+      .diagram-block { padding: 24px 16px 20px; }
+
+      .matrix-wrap {
+        margin-left: -18px;
+        margin-right: -18px;
+        padding-left: 18px;
+      }
+
+      .matrix-container {
+        min-width: 560px;
+      }
+
+      .nash-cell-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+
+      .nash-tag {
+        align-self: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- ── Header ── -->
+  <header class="post-header">
+    <p class="post-kicker">Opinion &middot; Engineering &middot; AI</p>
+    <h1 class="post-title">AI Didn't Level the Playing Field. It Steepened It.</h1>
+    <p class="post-subhead">On force multipliers, game theory, and the real cost of replacing expertise with automation.</p>
+    <div class="post-meta">
+      <span>Philip Amendolia</span>
+      <span>April 2026</span>
+    </div>
+  </header>
+
+  <article>
+
+    <!-- ── Section 1: The Argument ── -->
+    <section>
+      <p class="section-label">The Argument</p>
+      <div class="prose">
+        <p class="lead">
+          Everyone has AI. You are not special for having AI. Your competitor has it. Their intern has it. Tons of people smarter than you and better businesses than yours have it. It's not going to be what makes you competitive.
+        </p>
+        <p>
+          When a capability becomes universally available, it stops being a differentiator and becomes a baseline. The internet didn't give every business equal footing — it gave every business the same ground floor, and then the race resumed. AI is doing the same thing, faster, and the people who don't understand this are the same people who thought buying enterprise software was a strategy.
+        </p>
+        <p>
+          Here's the thing nobody is saying out loud: <strong>AI raises the floor a little and the ceiling a lot.</strong> Yes, a junior hire with AI can do things they couldn't do before. The floor came up. But the improvement is not linear — it's multiplicative. Output is a function of skill, scaled by AI leverage. When you raise the leverage, you raise everyone's output, but you raise it proportionally to the skill they started with. The floor rose an inch. The ceiling rose a mile.
+        </p>
+
+        <div class="pullquote">
+          <p>AI didn't remove the advantage of being good. It made the advantage of being good unreasonably large.</p>
+        </div>
+
+        <p>
+          The person "vibe coding their startup killer" on LinkedIn didn't succeed because AI removed the need for expertise. They succeeded because they had ten years of knowing what to build, who needs it, and what good looks like — and AI let them execute without a team. The expertise wasn't "how to code." It was judgment: what to build, what to skip, when the output was wrong. AI handled the execution. The human handled every decision that made the execution worth anything. In no version of that story does the order reverse.
+        </p>
+        <p>
+          A senior engineer using AI is not the same as a junior engineer using AI. A strategist with fifteen years of client work using AI is not the same as a coordinator who took a prompt engineering course. A lead designer using AI is not the same as someone who learned Figma last month. You are not comparing equals. You are comparing a scalpel with a handle to a scalpel duct-taped to a stick.
+        </p>
+      </div>
+    </section>
+
+    <hr class="section-rule" />
+
+    <!-- ── Section 2: Multiplier Chart ── -->
+    <section>
+      <p class="section-label">The Math</p>
+
+      <div class="chart-block">
+        <p class="chart-title">Output Quality vs. Skill Level &mdash; Pre-AI and AI Era</p>
+        <div class="chart-canvas-wrap">
+          <canvas id="multiplierChart"></canvas>
+        </div>
+        <div class="chart-legend">
+          <div class="chart-legend-item">
+            <div class="legend-line solid"></div>
+            <span>AI era</span>
+          </div>
+          <div class="chart-legend-item">
+            <div class="legend-line dashed"></div>
+            <span>Pre-AI</span>
+          </div>
+        </div>
+        <p class="chart-annotation">Same AI. Different leverage.</p>
+        <p class="chart-annotation" style="font-style: italic; color: var(--text-dim); font-size: 11px; margin-top: 4px;">The curves are illustrative, not empirical.<br>The exact shape is debatable. The direction is not.</p>
+      </div>
+
+      <div class="prose">
+        <p>
+          At low skill levels, AI helps — that's the floor rising. A mediocre hire with AI produces slightly better output than they would have alone. But there's not much to multiply. Congratulations, you've achieved mediocrity at scale.
+        </p>
+        <p>
+          Watch what happens at the right side of that chart. The gap doesn't converge — it accelerates. High-skill workers in the AI era don't just outperform their pre-AI selves. They outperform their low-skill AI-equipped competitors by a margin that grows with every improvement to the underlying model.
+        </p>
+        <p>
+          Every time the model gets better, the gap gets wider. This is not a bug. It's the math.
+        </p>
+      </div>
+    </section>
+
+    <hr class="section-rule" />
+
+    <!-- ── Section 3: The Real Threat ── -->
+    <section>
+      <p class="section-label">The Real Threat Nobody Talks About</p>
+      <div class="prose">
+        <p class="lead">
+          You didn't lower the barrier to compete. You lowered it for everyone &mdash; including your ex-employees.
+        </p>
+        <p>
+          Think about what you actually did when you replaced your experienced team with cheaper people and an AI subscription. You took people who understood your domain, your clients, your processes, and your failure modes, and you gave them a severance package and six months of runway. You handed them domain expertise, freed them from your org chart, and left them with full access to every tool you're using.
+        </p>
+        <p>
+          They have no overhead. No office. No executive team approving roadmaps. No re-org every eighteen months. No all-hands about culture. They have a laptop and ten years of knowing exactly where the bodies are buried in your industry.
+        </p>
+        <p>
+          You didn't disrupt your industry. <strong>You trained your future competitors and paid for their launch.</strong>
+        </p>
+        <p>
+          The calculus has always been this: the cost of a high-skill hire is high, but the cost of a high-skill hire who goes and competes against you is higher. The difference is that before AI, it was hard to go from "laid-off expert" to "running shop" fast enough to matter. Now the friction is gone. The tools are free. The cloud is pay-as-you-go. The time from "I got the call" to "I have a customer" is a weekend.
+        </p>
+        <p>
+          You optimized your headcount and created a competitor who understands your business better than your new hires ever will.
+        </p>
+      </div>
+    </section>
+
+    <hr class="section-rule" />
+
+    <!-- ── Section 4: Payoff Matrix ── -->
+    <section>
+      <p class="section-label">The Payoff Matrix</p>
+
+      <div class="prose">
+        <p>
+          This is not just a vibes argument. It's a game theory argument. Model it as a two-player simultaneous game: you and a competitor, each choosing whether to keep skilled people or cut to cheap plus AI.
+        </p>
+      </div>
+
+      <div class="matrix-wrap">
+        <!-- Competitor's Strategy header — spacer accounts for "Your Strategy" label (20px) + gap (6px) + row-label col (96px) -->
+        <div style="margin-bottom: 8px; display: flex; align-items: center;">
+          <div class="matrix-header-spacer" style="width: 122px; flex-shrink: 0;"></div>
+          <p class="matrix-axis-label matrix-axis-x" style="flex: 1; text-align: center;">Competitor's Strategy</p>
+        </div>
+
+        <!-- Your Strategy label + matrix side by side -->
+        <div style="display: flex; align-items: stretch; gap: 6px;">
+          <div class="matrix-axis-y-wrap" style="display: flex; align-items: center; justify-content: center; width: 20px; flex-shrink: 0;">
+            <p class="matrix-axis-label" style="writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap; margin: 0; letter-spacing: 0.1em;">Your Strategy</p>
+          </div>
+
+        <div class="matrix-container" style="flex: 1;">
+          <!-- Row 0: column headers -->
+          <div class="matrix-corner"></div>
+          <div class="matrix-col-header">
+            Competitor Keeps Skilled People
+          </div>
+          <div class="matrix-col-header">
+            Competitor Cuts to Cheap + AI
+          </div>
+
+          <!-- Row 1: You keep -->
+          <div class="matrix-row-label">
+            <span>You Keep Skilled People</span>
+          </div>
+
+          <div class="matrix-cell nash">
+            <div class="nash-cell-header">
+              <p class="matrix-cell-label">Arms Race &mdash; Skill Wins</p>
+              <span class="nash-tag">Nash Equilibrium</span>
+            </div>
+            <p class="matrix-cell-desc">Competitive market. Both sides have AI leverage on real capability. Quality differentiates. Market grows.</p>
+            <div class="matrix-scores">
+              <span class="score score-pos">You: +++</span>
+              <span class="score score-pos">Them: +++</span>
+            </div>
+          </div>
+
+          <div class="matrix-cell dominant">
+            <p class="matrix-cell-label">You Dominate</p>
+            <p class="matrix-cell-desc">Skilled team + AI vs mediocre team + AI. Not even close. You compound on expertise; they compound on confusion.</p>
+            <div class="matrix-scores">
+              <span class="score score-pos">You: ++++</span>
+              <span class="score score-neg">Them: &minus;&minus;</span>
+            </div>
+          </div>
+
+          <!-- Row 2: You cut -->
+          <div class="matrix-row-label">
+            <span>You Cut to Cheap + AI</span>
+          </div>
+
+          <div class="matrix-cell dominated">
+            <p class="matrix-cell-label">You Get Destroyed</p>
+            <p class="matrix-cell-desc">They kept the people who know what they're doing. You have AI and a team that doesn't know what to ask it.</p>
+            <div class="matrix-scores">
+              <span class="score score-neg">You: &minus;&minus;</span>
+              <span class="score score-pos">Them: ++++</span>
+            </div>
+          </div>
+
+          <div class="matrix-cell">
+            <p class="matrix-cell-label">Race to Mediocre</p>
+            <p class="matrix-cell-desc">Commodity work. Both sides produce faster, worse output. Market compresses margins. Nobody wins on quality.</p>
+            <div class="matrix-scores">
+              <span class="score score-meh">You: +</span>
+              <span class="score score-meh">Them: +</span>
+            </div>
+          </div>
+        </div><!-- /matrix-container -->
+        </div><!-- /Your Strategy wrapper -->
+
+        <p style="font-style: italic; color: var(--text-dim); font-size: 11px; margin-top: 8px; text-align: right; min-width: 560px;">The scores are directional, not measured. The relative payoffs are the argument, not the specific values.</p>
+
+        <p class="matrix-note" style="min-width: 560px; margin-right: 18px;">
+          <strong>"Keep skilled people"</strong> is the dominant strategy in any market where quality exists on a spectrum — which is most markets. If your competitor keeps talent, you're competitive. If they cut, you win outright. Cutting is only rational if you have already decided to be mediocre.
+        </p>
+      </div><!-- /matrix-wrap -->
+
+      <div class="prose">
+        <p>
+          The only honest counterargument: some markets have a quality ceiling, where output beyond a certain point doesn't convert to more revenue. Competent marketing execution for a mid-market company. Routine legal document review. Standard financial reporting. Work where "good enough" is genuinely good enough and the client cannot tell the difference between competent and exceptional. If AI can meet that ceiling without skilled people, the math appears to change.
+        </p>
+        <p>
+          It doesn't — and that +/+ in the bottom-right corner of the matrix is a mirage. It looks survivable in the short term: both sides cut costs, margins compress, everyone stays in business. But you are not competing with the other company that also cut. You are competing with the software itself — a product that scales infinitely, doesn't take vacation, and will undercut both of you by an order of magnitude. That +/+ is not an equilibrium. It's a countdown. The businesses trying to win a ceiling-bound market by hiring cheaper humans are just a slower, more expensive version of the software — and the software always wins on price.
+        </p>
+        <p>
+          The right response to a ceiling-bound market is not to deskill. It's to recognize that the floor of your market just became the ceiling, and either climb the value stack or get out. The companies that cut skilled people to meet the threshold aren't being strategic — they're buying themselves a few quarters before the software replaces them entirely.
+        </p>
+      </div>
+    </section>
+
+    <hr class="section-rule" />
+
+    <!-- ── Section 5: Anti-Equity Diagram ── -->
+    <section>
+      <p class="section-label">The Myth vs. Reality</p>
+
+      <div class="diagram-block">
+        <p class="diagram-title">AI as an Equalizer &mdash; The Actual Picture</p>
+        <div class="diagram-panels">
+
+          <!-- Panel left: The Myth -->
+          <div class="diagram-panel">
+            <p class="diagram-panel-label">The Myth</p>
+            <svg viewBox="0 0 200 210" width="100%" style="max-width: 220px;" aria-label="Myth diagram: AI boxes sized to bring all heads to the same level">
+              <defs>
+                <style>.label-txt { font-family: 'JetBrains Mono', monospace; font-size: 9px; }</style>
+              </defs>
+
+              <!--
+                Figure template (offsets from feet_y):
+                  Cheap    r=3.5: head_cy=feet-14.5, body feet-10→feet-5, arms from feet-8 ±8px, legs ±5px
+                  Mediocre r=4:   head_cy=feet-19,   body feet-14→feet-7, arms from feet-11 ±9px, legs ±6px
+                  Expert   r=5:   head_cy=feet-23,   body feet-17→feet-9, arms from feet-14 ±10px, legs ±7px
+                All head tops at y=82. Boxes compensate for figure height difference.
+                  Cheap    fig_h=18: feet=100, box y=100 h=43
+                  Mediocre fig_h=23: feet=105, box y=105 h=38
+                  Expert   fig_h=28: feet=110, box y=110 h=33
+              -->
+
+              <!-- Head-level line -->
+              <line x1="8" y1="82" x2="192" y2="82" stroke="#cba6f7" stroke-width="1" stroke-dasharray="3 2"/>
+              <text x="100" y="78" class="label-txt" fill="#cba6f7" font-size="8" text-anchor="middle">head level</text>
+
+              <!-- Cheap hire: tallest box — cx=38, feet=100 -->
+              <rect x="16" y="100" width="44" height="43" rx="2" fill="#181825" stroke="#89b4fa" stroke-width="1"/>
+              <text x="38" y="124" class="label-txt" fill="#89b4fa" text-anchor="middle" font-size="8">AI</text>
+              <circle cx="38" cy="85.5" r="3.5" stroke="#585b70" stroke-width="1.5" fill="none"/>
+              <line x1="38" y1="90"  x2="38" y2="95"  stroke="#585b70" stroke-width="1.5"/>
+              <line x1="38" y1="92"  x2="30" y2="96"  stroke="#585b70" stroke-width="1.5"/>
+              <line x1="38" y1="92"  x2="46" y2="96"  stroke="#585b70" stroke-width="1.5"/>
+              <line x1="38" y1="95"  x2="33" y2="100" stroke="#585b70" stroke-width="1.5"/>
+              <line x1="38" y1="95"  x2="43" y2="100" stroke="#585b70" stroke-width="1.5"/>
+              <text x="38" y="155" class="label-txt" fill="#6c7086" text-anchor="middle">Cheap hire</text>
+
+              <!-- Mediocre: medium box — cx=101, feet=105 -->
+              <rect x="79" y="105" width="44" height="38" rx="2" fill="#181825" stroke="#b4befe" stroke-width="1"/>
+              <text x="101" y="127" class="label-txt" fill="#b4befe" text-anchor="middle" font-size="8">AI</text>
+              <circle cx="101" cy="86" r="4" stroke="#cdd6f4" stroke-width="1.5" fill="none"/>
+              <line x1="101" y1="91"  x2="101" y2="98" stroke="#cdd6f4" stroke-width="1.5"/>
+              <line x1="101" y1="94"  x2="92"  y2="99" stroke="#cdd6f4" stroke-width="1.5"/>
+              <line x1="101" y1="94"  x2="110" y2="99" stroke="#cdd6f4" stroke-width="1.5"/>
+              <line x1="101" y1="98"  x2="95"  y2="105" stroke="#cdd6f4" stroke-width="1.5"/>
+              <line x1="101" y1="98"  x2="107" y2="105" stroke="#cdd6f4" stroke-width="1.5"/>
+              <text x="101" y="155" class="label-txt" fill="#6c7086" text-anchor="middle">Mediocre</text>
+
+              <!-- Expert: smallest box — cx=164, feet=110 -->
+              <rect x="142" y="110" width="44" height="33" rx="2" fill="#181825" stroke="#cba6f7" stroke-width="1"/>
+              <text x="164" y="130" class="label-txt" fill="#cba6f7" text-anchor="middle" font-size="8">AI</text>
+              <circle cx="164" cy="87" r="5" stroke="#a6e3a1" stroke-width="1.5" fill="none"/>
+              <line x1="164" y1="93"  x2="164" y2="101" stroke="#a6e3a1" stroke-width="1.5"/>
+              <line x1="164" y1="96"  x2="154" y2="102" stroke="#a6e3a1" stroke-width="1.5"/>
+              <line x1="164" y1="96"  x2="174" y2="102" stroke="#a6e3a1" stroke-width="1.5"/>
+              <line x1="164" y1="101" x2="157" y2="110" stroke="#a6e3a1" stroke-width="1.5"/>
+              <line x1="164" y1="101" x2="171" y2="110" stroke="#a6e3a1" stroke-width="1.5"/>
+              <text x="164" y="155" class="label-txt" fill="#6c7086" text-anchor="middle">Expert</text>
+
+              <!-- Caption -->
+              <text x="100" y="190" class="label-txt" fill="#6c7086" text-anchor="middle" font-size="9">AI levels the playing field.</text>
+            </svg>
+            <div class="diagram-panel-verdict verdict-false">✕ Not how it works</div>
+          </div>
+
+          <!-- Panel right: Reality -->
+          <div class="diagram-panel">
+            <p class="diagram-panel-label">Reality</p>
+            <svg viewBox="0 0 200 210" width="100%" style="max-width: 220px;" aria-label="Reality diagram: differently-sized AI boxes, differently-sized figures">
+              <defs></defs>
+
+              <!--
+                Order: cheap(cx=38) → mediocre(cx=101) → expert(cx=164)
+                All boxes bottom-aligned at y=143. Figure heights same as myth panel.
+                Cheap:    box h=18 → top=125, feet=125. r=3.5, head_cy=110, head_top=106.
+                Mediocre: box h=30 → top=113, feet=113. r=4,   head_cy=94,  head_top=90.
+                Expert:   box h=76 → top=67,  feet=67.  r=5,   head_cy=44,  head_top=39.
+                Expert→Mediocre head gap: 51px (huge). Mediocre→Cheap head gap: 16px (small).
+                Gap annotation sits between mediocre and expert columns.
+              -->
+
+              <!-- Cheap hire: small box — cx=38, feet=125 -->
+              <rect x="16" y="125" width="44" height="18" rx="2" fill="#181825" stroke="#89b4fa" stroke-width="1"/>
+              <text x="38" y="136" class="label-txt" fill="#89b4fa" text-anchor="middle" font-size="7">AI</text>
+              <circle cx="38" cy="110.5" r="3.5" stroke="#585b70" stroke-width="1.5" fill="none"/>
+              <line x1="38" y1="115"  x2="38" y2="120"  stroke="#585b70" stroke-width="1.5"/>
+              <line x1="38" y1="117"  x2="30" y2="121"  stroke="#585b70" stroke-width="1.5"/>
+              <line x1="38" y1="117"  x2="46" y2="121"  stroke="#585b70" stroke-width="1.5"/>
+              <line x1="38" y1="120"  x2="33" y2="125"  stroke="#585b70" stroke-width="1.5"/>
+              <line x1="38" y1="120"  x2="43" y2="125"  stroke="#585b70" stroke-width="1.5"/>
+              <text x="38" y="157" class="label-txt" fill="#6c7086" text-anchor="middle">Cheap hire</text>
+
+              <!-- Mediocre: medium box — cx=101, feet=113 -->
+              <rect x="79" y="113" width="44" height="30" rx="2" fill="#181825" stroke="#b4befe" stroke-width="1"/>
+              <text x="101" y="131" class="label-txt" fill="#b4befe" text-anchor="middle" font-size="8">AI</text>
+              <circle cx="101" cy="94" r="4" stroke="#cdd6f4" stroke-width="1.5" fill="none"/>
+              <line x1="101" y1="99"  x2="101" y2="106" stroke="#cdd6f4" stroke-width="1.5"/>
+              <line x1="101" y1="102" x2="92"  y2="107" stroke="#cdd6f4" stroke-width="1.5"/>
+              <line x1="101" y1="102" x2="110" y2="107" stroke="#cdd6f4" stroke-width="1.5"/>
+              <line x1="101" y1="106" x2="95"  y2="113" stroke="#cdd6f4" stroke-width="1.5"/>
+              <line x1="101" y1="106" x2="107" y2="113" stroke="#cdd6f4" stroke-width="1.5"/>
+              <text x="101" y="157" class="label-txt" fill="#6c7086" text-anchor="middle">Mediocre</text>
+
+              <!-- Expert: tall box — cx=164, feet=67 -->
+              <rect x="142" y="67" width="44" height="76" rx="2" fill="#181825" stroke="#cba6f7" stroke-width="1"/>
+              <text x="164" y="108" class="label-txt" fill="#cba6f7" text-anchor="middle" font-size="8">AI</text>
+              <circle cx="164" cy="44" r="5" stroke="#a6e3a1" stroke-width="1.5" fill="none"/>
+              <line x1="164" y1="50"  x2="164" y2="58"  stroke="#a6e3a1" stroke-width="1.5"/>
+              <line x1="164" y1="53"  x2="154" y2="59"  stroke="#a6e3a1" stroke-width="1.5"/>
+              <line x1="164" y1="53"  x2="174" y2="59"  stroke="#a6e3a1" stroke-width="1.5"/>
+              <line x1="164" y1="58"  x2="157" y2="67"  stroke="#a6e3a1" stroke-width="1.5"/>
+              <line x1="164" y1="58"  x2="171" y2="67"  stroke="#a6e3a1" stroke-width="1.5"/>
+              <text x="164" y="157" class="label-txt" fill="#6c7086" text-anchor="middle">Expert</text>
+
+              <!--
+                Gap lines: horizontal at expert head top (y=39), vertical drops
+                from mediocre head top (y=90, cx=101) and cheap head top (y=107, cx=38)
+                up to the reference line.
+              -->
+              <!-- Horizontal reference at expert's head top -->
+              <line x1="8" y1="39" x2="192" y2="39" stroke="#cba6f7" stroke-width="0.75" stroke-dasharray="4 3"/>
+              <text x="192" y="36" class="label-txt" fill="#cba6f7" font-size="7" text-anchor="end">expert's reach</text>
+
+              <!-- Drop line: mediocre (cx=101) from y=90 to y=39 -->
+              <line x1="101" y1="90" x2="101" y2="39" stroke="#cba6f7" stroke-width="0.75" stroke-dasharray="3 2"/>
+
+              <!-- Drop line: cheap hire (cx=38) from y=107 to y=39 -->
+              <line x1="38" y1="107" x2="38" y2="39" stroke="#cba6f7" stroke-width="0.75" stroke-dasharray="3 2"/>
+
+              <!-- Caption -->
+              <text x="100" y="190" class="label-txt" fill="#6c7086" text-anchor="middle" font-size="9">Same AI. Wildly different leverage.</text>
+            </svg>
+            <div class="diagram-panel-verdict verdict-true">How it actually works</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-rule" />
+
+    <!-- ── Section 6: What the Incentives Actually Say ── -->
+    <section>
+      <p class="section-label">What the Incentives Actually Say</p>
+      <div class="prose">
+        <p class="lead">
+          The incentive to hire smart people didn't go away. It accelerated.
+        </p>
+        <p>
+          Your best person with AI doesn't just get faster — their leverage compounds. Every decision they make &mdash; what to prioritize, what to cut, how to position, when to push back on a client &mdash; is now backed by a tool that can hold the entire context of a problem in working memory, generate alternatives in seconds, and surface edge cases they might have taken a day to find on their own. The improvement is not additive. It is multiplicative, and it compounds on the skill that was already there.
+        </p>
+        <p>
+          A mediocre hire with AI is a mediocre hire who moves faster. The AI cannot compensate for not knowing what to ask, not recognizing when an answer is wrong, not understanding the second-order effects of a decision, and not having the judgment to know when to stop. These are skill problems. AI doesn't fix skill problems. It amplifies whatever is already there.
+        </p>
+        <p>
+          Every capability improvement in the underlying models &mdash; better reasoning, longer context, broader domain knowledge &mdash; increases the return on hiring someone who actually understands what they're doing. The smarter the AI gets, the more the expert can leverage it, and the more the non-expert is exposed by it.
+        </p>
+
+        <div class="pullquote">
+          <p>Cutting to cheap plus AI is like removing the RAM from your computer because you bought better software. The software requires the RAM. That's the whole point.</p>
+        </div>
+
+        <p>
+          The people selling you the "AI replaces experts" story are either selling you AI tools or they don't understand what their experts were actually doing. Possibly both. If you believe it — <strong>congratulations, your mind has been colonized.</strong> The work of a senior person is not "produce deliverables faster." It's judgment, pattern recognition, taste, and the ability to see three problems ahead. AI can help with all of those &mdash; but only if someone is holding the other end.
+        </p>
+      </div>
+    </section>
+
+    <hr class="section-rule" />
+
+    <!-- ── Closing ── -->
+    <section class="closing">
+      <div class="prose">
+        <p>
+          The bar hasn't been lowered. <strong>The ceiling has been raised.</strong>
+        </p>
+        <p style="margin-top: 20px;">
+          If you fired your smart people because you thought AI made them replaceable, you didn't cut costs. You handed your competitors a head start, trained your future rivals on your own dime, and downgraded your team's output at exactly the moment when the gap between good and great is wider than it has ever been.
+        </p>
+        <p style="margin-top: 20px;">
+          The models will keep improving. The multiplier will keep climbing. And every improvement will widen the gap between the teams that have someone who knows what to point the AI at and the teams that don't. This is not a correction that reverses. It is a divergence that accelerates.
+        </p>
+        <p style="margin-top: 20px; color: var(--text-muted); font-size: 15px;">
+          You are on the wrong side of it.
+        </p>
+      </div>
+    </section>
+
+  </article>
+
+  <!-- ── Post Footer ── -->
+  <footer class="post-footer">
+    <p><a href="/">← Philip Amendolia</a></p>
+  </footer>
+
+</div><!-- /wrapper -->
+
+<script>
+  /* ── Chart: Output vs Skill ── */
+  (function () {
+    /* Catppuccin Mocha */
+    const gridColor  = 'rgba(255,255,255,0.05)'; /* surface0-ish */
+    const tickColor  = '#6c7086';                /* overlay0 */
+    const aiColor    = '#cba6f7';                /* mauve */
+    const preColor   = '#7f849c';                /* overlay1 */
+    const labelColor = '#a6adc8';                /* subtext0 */
+
+    // Generate 51 points from skill 0 to 100
+    const skillLevels = Array.from({length: 11}, (_, i) => i * 10);
+
+    const preAI = skillLevels.map(s => Math.pow(s, 1.7) * 0.9);
+    const aiEra = skillLevels.map(s => Math.pow(s, 2.0) * 0.9 + 500);
+
+    const ctx = document.getElementById('multiplierChart').getContext('2d');
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: skillLevels,
+        datasets: [
+          {
+            label: 'AI Era',
+            data: aiEra,
+            borderColor: aiColor,
+            borderWidth: 2.5,
+            pointRadius: 0,
+            tension: 0.35,
+            fill: false,
+          },
+          {
+            label: 'Pre-AI',
+            data: preAI,
+            borderColor: preColor,
+            borderWidth: 1.75,
+            borderDash: [6, 4],
+            pointRadius: 0,
+            tension: 0.35,
+            fill: false,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 600 },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#181825', /* mantle */
+            titleColor: '#cdd6f4',      /* text */
+            bodyColor: '#a6adc8',       /* subtext0 */
+            borderColor: '#313244',     /* surface0 */
+            borderWidth: 1,
+            padding: 10,
+            titleFont: { family: "'JetBrains Mono', monospace", size: 11 },
+            bodyFont:  { family: "'JetBrains Mono', monospace", size: 11 },
+            callbacks: {
+              title: items => `Skill: ${items[0].label}`,
+              label: item => `${item.dataset.label}: ${item.parsed.y.toFixed(1)}`,
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Skill Level',
+              color: labelColor,
+              font: { family: "'JetBrains Mono', monospace", size: 11 },
+              padding: { top: 8 }
+            },
+            ticks: {
+              color: tickColor,
+              font: { family: "'JetBrains Mono', monospace", size: 10 },
+            },
+            grid: { color: gridColor },
+            border: { color: gridColor }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Output Quality',
+              color: labelColor,
+              font: { family: "'JetBrains Mono', monospace", size: 11 },
+              padding: { bottom: 8 }
+            },
+            ticks: { display: false },
+            grid: { color: gridColor },
+            border: { color: gridColor }
+          }
+        }
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
