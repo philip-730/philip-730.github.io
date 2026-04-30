@@ -717,6 +717,7 @@
               <span class="pill pill-teal">NixOS</span>
               <span class="pill pill-teal">home-manager</span>
               <span class="pill pill-teal">Nix binary cache</span>
+              <span class="pill pill-sapphire">Kubernetes</span>
               <span class="pill pill-surface">Bash</span>
               <span class="pill pill-surface">Linux</span>
             </div>
@@ -1210,6 +1211,58 @@
               <span class="pill pill-surface">Claude API</span>
               <span class="pill pill-teal">Nix</span>
               <span class="pill pill-blue">Terraform</span>
+            </div>
+          </div>
+
+          <!-- Bong Registry -->
+          <div class="project-card">
+            <div class="project-header">
+              <span class="project-name">catchbong.com</span>
+              <div class="project-links">
+                <a
+                  href="https://github.com/philip-730/bong-registry"
+                  target="_blank"
+                  rel="noopener"
+                  class="project-link-btn"
+                  >GitHub</a
+                >
+              </div>
+            </div>
+            <p class="project-desc">
+              Social app for catching and rating stupid moments. Friends submit
+              offenses, a Claude judge scores them 1–10 with streaming verdicts
+              delivered character-by-character, and leaderboards track who's
+              racked up the most bongs.
+            </p>
+            <ul class="project-bullets">
+              <li>
+                3-node k3s cluster on Hetzner private network — control plane
+                isolated, only one worker node internet-exposed on 80/443
+              </li>
+              <li>
+                PostgreSQL on a StatefulSet with local PVC on a dedicated worker
+                to avoid cross-node volume scheduling issues; init container
+                runs Alembic migrations before the app starts
+              </li>
+              <li>
+                Nginx ingress with custom SSE timeout annotations; cert-manager
+                for TLS; Alembic managing schema migrations
+              </li>
+              <li>
+                OCI images built with Nix
+                <code>dockerTools.streamLayeredImage</code> — no Docker daemon;
+                pushed to registry via <code>skopeo</code>
+                in GitHub Actions
+              </li>
+            </ul>
+            <div class="project-stack">
+              <span class="pill pill-sapphire">Kubernetes</span>
+              <span class="pill pill-teal">Nix</span>
+              <span class="pill pill-blue">Next.js</span>
+              <span class="pill pill-mauve">FastAPI</span>
+              <span class="pill pill-surface">PostgreSQL</span>
+              <span class="pill pill-surface">SQLAlchemy</span>
+              <span class="pill pill-surface">Alembic</span>
             </div>
           </div>
 
