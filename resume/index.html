@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Philip Amendolia — Resume</title>
+    <meta
+      name="description"
+      content="Resume — Philip Amendolia, Platform & Cloud Engineer, NYC."
+    />
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #f2f2f2;
+        color: #111;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+      }
+      .page {
+        max-width: 780px;
+        margin: 32px auto;
+        background: #fff;
+        padding: 42px 56px;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
+      }
+
+      header {
+        border-bottom: 2px solid #111;
+        padding-bottom: 10px;
+        margin-bottom: 16px;
+      }
+      h1 {
+        font-size: 26px;
+        letter-spacing: -0.01em;
+        margin: 0 0 4px;
+      }
+      .title {
+        font-size: 14px;
+        color: #333;
+        margin: 0 0 10px;
+      }
+      .contact {
+        font-size: 11px;
+        color: #333;
+      }
+      .contact a {
+        color: #333;
+        text-decoration: none;
+      }
+      .contact a:hover {
+        text-decoration: underline;
+      }
+      .contact span.sep {
+        color: #999;
+        margin: 0 5px;
+      }
+
+      section {
+        margin-bottom: 8px;
+      }
+      h2 {
+        font-size: 11.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.09em;
+        color: #111;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 3px;
+        margin: 0 0 7px;
+      }
+
+      .summary {
+        font-size: 12.5px;
+        line-height: 1.5;
+        margin: 0;
+      }
+
+      .skills-row {
+        display: flex;
+        font-size: 12px;
+        line-height: 1.45;
+        margin-bottom: 2px;
+      }
+      .skills-row .cat {
+        flex: 0 0 128px;
+        font-weight: 700;
+        color: #111;
+      }
+      .skills-row .vals {
+        flex: 1;
+        color: #222;
+      }
+
+      .job {
+        margin-bottom: 7px;
+        break-inside: avoid;
+      }
+      .job:last-child {
+        margin-bottom: 0;
+      }
+      .job-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+      }
+      .job-co {
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .job-loc {
+        font-size: 12px;
+        color: #555;
+        font-weight: 400;
+      }
+      .job-role-line {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+        margin-top: 6px;
+      }
+      .job-role {
+        font-size: 12.5px;
+        font-weight: 700;
+        color: #222;
+      }
+      .job-date {
+        font-size: 12px;
+        color: #555;
+        white-space: nowrap;
+      }
+      ul.bullets {
+        margin: 5px 0 0;
+        padding-left: 16px;
+      }
+      ul.bullets li {
+        font-size: 12px;
+        line-height: 1.4;
+        margin-bottom: 1px;
+      }
+
+      .proj {
+        margin-bottom: 3px;
+        break-inside: avoid;
+      }
+      .proj:last-child {
+        margin-bottom: 0;
+      }
+      .proj-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: baseline;
+      }
+      .proj-name {
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .proj-stack {
+        font-size: 11.5px;
+        color: #555;
+      }
+      .proj-desc {
+        font-size: 12.5px;
+        line-height: 1.5;
+        margin: 3px 0 0;
+      }
+
+      footer.note {
+        margin-top: 26px;
+        font-size: 10.5px;
+        color: #888;
+        text-align: center;
+      }
+      footer.note a {
+        color: #888;
+      }
+
+      @media print {
+        body {
+          background: #fff;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+          padding: 0.22in 0.55in;
+        }
+        footer.note {
+          display: none;
+        }
+        @page {
+          size: letter;
+          margin: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <h1>Philip Amendolia</h1>
+        <p class="title">Platform &amp; Cloud Engineer</p>
+        <p class="contact">
+          New York, NY<span class="sep">|</span
+          ><a href="tel:+15164455367">516-445-5367</a
+          ><span class="sep">|</span
+          ><a href="mailto:philip.amendolia@gmail.com"
+            >philip.amendolia@gmail.com</a
+          ><span class="sep">|</span
+          ><a href="https://github.com/philip-730" target="_blank" rel="noopener"
+            >github.com/philip-730</a
+          ><span class="sep">|</span
+          ><a href="https://philipamendolia.com" target="_blank" rel="noopener"
+            >philipamendolia.com</a
+          >
+        </p>
+      </header>
+
+      <section>
+        <h2>Summary</h2>
+        <p class="summary">
+          Engineer with 9+ years shipping cloud-native data and platform
+          infrastructure on Google Cloud Platform. Transitioned into
+          engineering from product management — came up alongside strong
+          engineers and never stopped learning. Owns systems end to end,
+          from IaC and CI/CD through backend APIs and frontend tooling.
+          Strong opinions on reproducibility and doing things right — every
+          environment, build, and container image is built with Nix.
+        </p>
+      </section>
+
+      <section>
+        <h2>Skills</h2>
+        <div class="skills-row">
+          <span class="cat">IaC / Systems</span>
+          <span class="vals"
+            >Terraform, Nix, NixOS, Kubernetes, Linux, Bash</span
+          >
+        </div>
+        <div class="skills-row">
+          <span class="cat">Cloud (GCP)</span>
+          <span class="vals"
+            >Cloud Run, Cloud Functions, Compute Engine, BigQuery, Firestore,
+            Cloud SQL, Pub/Sub, Workflows, Eventarc, IAM &amp; Workload
+            Identity Federation, Cloud Armor, Load Balancing, Secret Manager,
+            Cloud Monitoring/Logging, Artifact Registry</span
+          >
+        </div>
+        <div class="skills-row">
+          <span class="cat">Languages</span>
+          <span class="vals">TypeScript, Python, Go, Nix, HCL, SQL</span>
+        </div>
+        <div class="skills-row">
+          <span class="cat">CI/CD &amp; Containers</span>
+          <span class="vals"
+            >GitHub Actions, Cloud Build, Docker, Nix dockerTools
+            (daemonless OCI builds)</span
+          >
+        </div>
+        <div class="skills-row">
+          <span class="cat">Frameworks</span>
+          <span class="vals">Next.js, React, FastAPI, Flask</span>
+        </div>
+        <div class="skills-row">
+          <span class="cat">AI / GenAI</span>
+          <span class="vals"
+            >LLM integration, prompt engineering, MCP development, Claude
+            API</span
+          >
+        </div>
+      </section>
+
+      <section>
+        <h2>Experience</h2>
+
+        <div class="job">
+          <div class="job-head">
+            <span class="job-co">EPL Digital</span>
+            <span class="job-loc">New York City</span>
+          </div>
+
+          <div class="job-role-line">
+            <span class="job-role">Staff Engineer</span>
+            <span class="job-date">Jul 2022 – Present</span>
+          </div>
+          <ul class="bullets">
+            <li>
+              Lead data and platform engineering across internal and
+              client-facing systems; own GCP org-level infrastructure and
+              landing zone, driving IaC (Terraform, Nix) and CI/CD adoption
+              org-wide
+            </li>
+            <li>
+              Designed a keyless GCP landing zone built on Workload Identity
+              Federation — no service account keys stored anywhere; WIF pools
+              scoped per-repo so only authorized CI can impersonate deploy
+              service accounts
+            </li>
+            <li>
+              Architected and maintain an event-driven ELT platform
+              processing 40M+ rows/day across 10+ API integrations (Cloud
+              Workflows, Pub/Sub, Eventarc, parallelized Cloud Functions)
+            </li>
+            <li>
+              Built and deployed an internal bid-optimization platform around
+              a proprietary ML model — API microservice for automated
+              execution plus a Next.js frontend, fully on Cloud Run
+            </li>
+            <li>
+              Own infrastructure for the company's SQLMesh data-modeling
+              platform — Terraform, Nix-built OCI images, Cloud Build CI/CD,
+              and a self-hosted Nix binary cache to accelerate builds
+            </li>
+          </ul>
+
+          <div class="job-role-line" style="margin-top: 12px">
+            <span class="job-role">Data Engineer</span>
+            <span class="job-date">Apr 2019 – Jun 2022</span>
+          </div>
+          <ul class="bullets">
+            <li>
+              Architected and deployed foundational data infrastructure,
+              marketing-tracking infrastructure, and internal tooling from the
+              ground up
+            </li>
+            <li>
+              Designed and built a multi-tenant, multi-API ELT pipeline
+              platform that became the company's core data engine; led
+              deployment of its first cloud-native applications and
+              introduced modern DevOps/IaC practices (Terraform, CI/CD)
+            </li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="job-head">
+            <span class="job-co">Stack Blue</span>
+            <span class="job-loc">New York City</span>
+          </div>
+          <div class="job-role-line">
+            <span class="job-role">Product Manager</span>
+            <span class="job-date">Aug 2014 – Apr 2019</span>
+          </div>
+          <ul class="bullets">
+            <li>
+              Managed end-to-end delivery for web and mobile product
+              accounts as primary client/engineering liaison; came up
+              alongside strong engineers and transitioned into engineering
+              full-time
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>Nix &amp; Open Source</h2>
+
+        <div class="proj">
+          <div class="proj-head">
+            <span class="proj-name">phix — Personal Nix Flake</span>
+            <span class="proj-stack">NixOS · nix-darwin · home-manager</span>
+          </div>
+          <p class="proj-desc">
+            Reproducible system configs across NixOS bare metal, NixOS-WSL,
+            and macOS. Factory helpers (<code>mkNixosHost</code>,
+            <code>mkDarwinHost</code>) drive consistent host wiring across a
+            modular <code>modules/common</code> / <code>modules/home</code>
+            structure.
+          </p>
+        </div>
+
+        <div class="proj">
+          <div class="proj-head">
+            <span class="proj-name">nixpkgs / home-manager</span>
+            <span class="proj-stack">Maintainer &amp; contributor</span>
+          </div>
+          <p class="proj-desc">
+            Maintain the home-manager WezTerm module; shipped its
+            <code>darkman</code> unified-scripts option. Open: packaging
+            Senzu for nixpkgs and a Nix installer fix for multi-user
+            <code>--no-modify-profile</code>.
+          </p>
+        </div>
+
+        <div class="proj">
+          <div class="proj-head">
+            <span class="proj-name">Senzu</span>
+            <span class="proj-stack">Python · Nix (uv2nix) · PyPI</span>
+          </div>
+          <p class="proj-desc">
+            CLI + library syncing <code>.env</code> files with GCP Secret
+            Manager; builds fully managed by Nix (uv2nix).
+          </p>
+        </div>
+      </section>
+    </div>
+    <footer class="note">
+      Full project details, live open-source activity, and additional writing
+      at philipamendolia.com
+    </footer>
+  </body>
+</html>
